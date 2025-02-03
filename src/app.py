@@ -15,19 +15,16 @@ CORS(app)
 # create the jackson family object
 jackson_family = FamilyStructure("Jackson", [
     {
-        # "id": Int,
         "first_name": "John",
         "age": 33,
         "lucky_numbers": [7, 13, 22]
     },
     {
-        # "id": Int,
         "first_name": "Jane",
         "age": 35,
         "lucky_numbers": [10, 14, 3]
     },
     {
-        # "id": Int,
         "first_name": "Jimmy",
         "age": 5,
         "lucky_numbers": [1]
@@ -35,26 +32,6 @@ jackson_family = FamilyStructure("Jackson", [
 ])
 print(jackson_family.get_all_members())
 
-# self._members = [
-#     {
-#     "id": Int,
-#     "first_name": "John",
-#     "age": 33,
-#     "lucky_numbers": [7, 13, 22]
-# },
-#     {
-#     "id": Int,
-#     "first_name": "Jane",
-#     "age": 35,
-#     "lucky_numbers": [10, 14, 3]
-# },
-#     {
-#     "id": Int,
-#     "first_name": "Jimmy",
-#     "age": 5,
-#     "lucky_numbers": [1]
-# }
-# ]
 
 # Handle/serialize errors like a JSON object
 
@@ -77,17 +54,17 @@ def read_family():
     return (jsonify(members), 200)
 
 @app.route("/member", methods=["POST"])
-def create_member():
+def add_person():
     jackson_family.add_member(request.json)
     return (jsonify({}), 200)
 
 @app.route("/member/<int:id>", methods=["GET"])
-def get_member(id:int):
+def get_person(id:int):
     person = jackson_family.get_member(id)
     return (jsonify(person), 200)
 
-@app.route("/member/<int:id>", methods=["GET"])
-def delete_member(id:int):
+@app.route("/member/<int:id>", methods=["DELETE"])
+def delete_person(id:int):
     jackson_family.delete_member(id)
     return (jsonify({"done": True}), 200)
 
